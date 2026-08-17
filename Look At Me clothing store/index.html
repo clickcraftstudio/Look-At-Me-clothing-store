@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Look At Me | Designer Clothing Store in Pinjore</title>
+  <meta name="description" content="Look At Me is a designer clothing store in Pinjore offering women's clothing, bridal lehengas, gowns, sarees, ethnic wear, customised outfits and rental options.">
+  <meta property="og:title" content="Look At Me | Designer Clothing Store in Pinjore">
+  <meta property="og:description" content="Luxury Indian fashion, bridal couture and occasion wear in Pinjore.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="/theme.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #C9A86A;
+    }
+
+    body.menu-open,
+    body.lightbox-open {
+      overflow: hidden;
+    }
+
+    .heading {
+      font-family: var(--font-heading);
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+
+    .header {
+      transition: background .35s ease, border-color .35s ease, padding .35s ease;
+    }
+
+    .header.is-scrolled {
+      background: rgba(41, 18, 30, .94);
+      border-bottom-color: rgba(201, 168, 106, .35);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-link {
+      position: relative;
+      color: rgba(255, 249, 243, .84);
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width .3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after {
+      width: 100%;
+    }
+
+    .hero {
+      background: linear-gradient(90deg, rgba(41, 18, 30, .84), rgba(41, 18, 30, .36) 65%, rgba(41, 18, 30, .52)), url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=2200&q=88') center/cover;
+      animation: heroZoom 18s ease-out both;
+    }
+
+    @keyframes heroZoom {
+      from {
+        background-size: 108%;
+      }
+
+      to {
+        background-size: 100%;
+      }
+    }
+
+    .gold-button {
+      border: 1px solid var(--gold);
+      background: var(--gold);
+      color: var(--color-primary);
+      transition: transform .3s ease, background .3s ease, color .3s ease;
+    }
+
+    .gold-button:hover {
+      background: transparent;
+      color: var(--gold);
+      transform: translateY(-3px);
+    }
+
+    .outline-button {
+      border: 1px solid rgba(255, 249, 243, .65);
+      color: var(--color-primary-contrast);
+      transition: border-color .3s ease, background .3s ease;
+    }
+
+    .outline-button:hover {
+      border-color: var(--gold);
+      background: rgba(201, 168, 106, .12);
+    }
+
+    .section-pad {
+      padding: clamp(5rem, 10vw, 9rem) clamp(1.25rem, 6vw, 7rem);
+    }
+
+    .collection-card {
+      min-height: 430px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .collection-card img,
+    .gallery-item img {
+      transition: transform .8s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .collection-card:hover img,
+    .gallery-item:hover img {
+      transform: scale(1.07);
+    }
+
+    .collection-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 35%, rgba(41, 18, 30, .9));
+    }
+
+    .collection-content {
+      z-index: 1;
+    }
+
+    .collection-content::before {
+      content: '';
+      display: block;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 14px;
+      transition: width .4s ease;
+    }
+
+    .collection-card:hover .collection-content::before {
+      width: 58px;
+    }
+
+    .mobile-menu,
+    .menu-overlay,
+    .lightbox {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .3s ease, visibility .3s ease;
+    }
+
+    .mobile-menu.is-open,
+    .menu-overlay.is-open,
+    .lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform .35s ease, opacity .3s ease, visibility .3s ease;
+    }
+
+    .mobile-menu.is-open {
+      transform: translateX(0);
+    }
+
+    .review-viewport {
+      overflow: hidden;
+    }
+
+    .review-track {
+      display: flex;
+      transition: transform .5s ease;
+    }
+
+    .review-card {
+      min-width: 100%;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .gallery-item::after {
+      content: 'VIEW';
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: var(--color-primary-contrast);
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .22em;
+      background: rgba(41, 18, 30, .4);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .gallery-item:hover::after,
+    .gallery-item:focus-visible::after {
+      opacity: 1;
+    }
+
+    .lightbox-image {
+      max-height: 76vh;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .feature-icon {
+      color: var(--gold);
+      border: 1px solid rgba(201, 168, 106, .5);
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .review-card {
+        min-width: 50%;
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .review-card {
+        min-width: 33.333%;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero {
+        min-height: 760px;
+        animation: none;
+      }
+
+      .collection-card {
+        min-height: 360px;
+      }
+
+      .mobile-bottom {
+        display: flex;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .mobile-bottom {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero {
+        animation: none;
+      }
+    }
+
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ClothingStore",
+      "name": "Look At Me",
+      "alternateName": "लुक अत मे",
+      "telephone": "09815252627",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Showroom No. F1, First Floor, BRV Complex, Opp. PNB Bank, Main Bazaar",
+        "addressLocality": "Pinjore",
+        "addressRegion": "Haryana",
+        "postalCode": "134102",
+        "addressCountry": "IN"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "320"
+      }
+    }
+
+  </script>
+</head>
+
+<body>
+  <header class="header fixed top-0 left-0 right-0 z-40 border-b border-transparent px-5 py-5 md:px-10 lg:px-16" data-header>
+    <div class="mx-auto flex max-w-[1500px] items-center justify-between gap-8">
+      <a href="/" class="text-[var(--color-primary-contrast)]" aria-label="Look At Me home"><span class="block text-lg font-extrabold tracking-[.18em]">LOOK AT ME</span><span class="block text-[10px] tracking-[.18em] opacity-75">लुक अत मे</span></a>
+      <nav class="hidden items-center gap-7 lg:flex" aria-label="Main navigation">
+        <a class="nav-link" href="#home">Home</a><a class="nav-link" href="#about">About</a><a class="nav-link" href="#collections">Collections</a><a class="nav-link" href="#bridal">Bridal</a><a class="nav-link" href="#rental">Rental</a><a class="nav-link" href="#gallery">Gallery</a><a class="nav-link" href="#reviews">Reviews</a><a class="nav-link" href="#visit">Visit Us</a>
+      </nav>
+      <a href="#visit" class="gold-button hidden px-5 py-3 text-[10px] font-extrabold tracking-[.18em] lg:block">VISIT SHOWROOM</a>
+      <button class="text-[var(--color-primary-contrast)] lg:hidden" data-menu-button aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu"><span class="block h-px w-7 bg-current"></span><span class="my-2 block h-px w-5 bg-current"></span><span class="block h-px w-7 bg-current"></span></button>
+    </div>
+  </header>
+  <div class="menu-overlay fixed inset-0 z-40 bg-[rgba(23,19,22,.65)]" data-menu-overlay></div>
+  <aside id="mobile-menu" class="mobile-menu fixed right-0 top-0 z-50 flex h-full w-[min(86vw,380px)] flex-col bg-[var(--color-primary)] p-8 pt-28" data-mobile-menu>
+    <p class="eyebrow mb-10">Look At Me / Menu</p>
+    <nav class="flex flex-col gap-6" aria-label="Mobile navigation">
+      <a data-menu-link class="heading text-4xl text-[var(--color-primary-contrast)]" href="#home">Home</a><a data-menu-link class="heading text-4xl text-[var(--color-primary-contrast)]" href="#about">About</a><a data-menu-link class="heading text-4xl text-[var(--color-primary-contrast)]" href="#collections">Collections</a><a data-menu-link class="heading text-4xl text-[var(--color-primary-contrast)]" href="#bridal">Bridal</a><a data-menu-link class="heading text-4xl text-[var(--color-primary-contrast)]" href="#rental">Rental</a><a data-menu-link class="heading text-4xl text-[var(--color-primary-contrast)]" href="#gallery">Gallery</a><a data-menu-link class="heading text-4xl text-[var(--color-primary-contrast)]" href="#reviews">Reviews</a><a data-menu-link class="heading text-4xl text-[var(--color-primary-contrast)]" href="#visit">Visit Us</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section id="home" class="hero flex min-h-screen items-end px-6 pb-24 pt-36 text-[var(--color-primary-contrast)] md:px-12 lg:px-24" aria-label="Look At Me introduction">
+      <div class="mx-auto w-full max-w-[1500px]">
+        <p class="eyebrow mb-6 reveal">Designer <span class="opacity-60">•</span> Bridal <span class="opacity-60">•</span> Ethnic</p>
+        <h1 class="heading max-w-3xl text-7xl font-medium leading-[.82] md:text-9xl reveal">Wear Your<br><em class="text-[var(--gold)]">Moment.</em></h1>
+        <p class="mt-8 max-w-lg text-sm leading-7 text-[var(--color-primary-contrast)]/80 md:text-base reveal">Discover thoughtfully curated designer wear, bridal lehengas, gowns, sarees and ethnic fashion for moments worth remembering.</p>
+        <div class="mt-9 flex flex-wrap gap-3 reveal"><a href="#collections" class="gold-button px-7 py-4 text-[10px] font-extrabold tracking-[.18em]">EXPLORE COLLECTION</a><a href="#visit" class="outline-button px-7 py-4 text-[10px] font-extrabold tracking-[.18em]">VISIT SHOWROOM</a></div>
+        <p class="mt-12 text-[10px] font-bold tracking-[.25em] text-[var(--gold)]">PINJORE <span class="mx-2 opacity-50">•</span> HARYANA</p>
+      </div>
+      <div class="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 text-[10px] tracking-[.25em] md:flex"><span class="h-12 w-px bg-[var(--gold)]"></span>SCROLL</div>
+    </section>
+
+    <section class="flex flex-wrap items-stretch justify-center bg-[var(--color-primary)] text-[var(--color-primary-contrast)]">
+      <div class="flex min-w-[50%] flex-1 items-center justify-center border-b border-r border-white/15 px-5 py-8 text-center md:min-w-0"><strong class="heading text-4xl text-[var(--gold)]" data-counter="4.9">4.9</strong><span class="ml-3 text-[10px] font-bold tracking-[.16em] opacity-75">GOOGLE<br>RATING</span></div>
+      <div class="flex min-w-[50%] flex-1 items-center justify-center border-b border-white/15 px-5 py-8 text-center md:min-w-0"><strong class="heading text-4xl text-[var(--gold)]" data-counter="320">320+</strong><span class="ml-3 text-[10px] font-bold tracking-[.16em] opacity-75">GOOGLE<br>REVIEWS</span></div>
+      <div class="flex min-w-[50%] flex-1 items-center justify-center border-r border-white/15 px-5 py-8 text-center md:min-w-0"><strong class="heading text-2xl text-[var(--gold)]">DESIGNER</strong><span class="ml-3 text-[10px] font-bold tracking-[.16em] opacity-75">CLOTHING</span></div>
+      <div class="flex min-w-[50%] flex-1 items-center justify-center px-5 py-8 text-center md:min-w-0"><strong class="heading text-2xl text-[var(--gold)]">BRIDAL</strong><span class="ml-3 text-[10px] font-bold tracking-[.16em] opacity-75">COLLECTION</span></div>
+    </section>
+
+    <section id="about" class="section-pad grid items-center gap-14 lg:grid-cols-[.9fr_1fr] lg:gap-24">
+      <div class="relative reveal"><img class="h-[500px] w-full object-cover md:h-[650px]" src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=1000&q=85" alt="Elegant Indian fashion detail"><span class="absolute -bottom-5 -right-4 border border-[var(--gold)] px-5 py-3 text-[10px] font-bold tracking-[.2em] text-[var(--color-primary)] md:-right-8">लुक अत मे</span></div>
+      <div class="max-w-xl reveal">
+        <p class="eyebrow">The Look At Me Experience</p>
+        <h2 class="heading mt-5 text-6xl font-medium leading-[.9] text-[var(--color-primary)] md:text-8xl">Fashion That Makes<br><em>The Moment.</em></h2>
+        <p class="mt-8 text-sm leading-8 text-[var(--color-muted)]">Look At Me is a designer clothing destination in Pinjore offering women's fashion, bridal wear and ethnic outfits for weddings, celebrations and special occasions.</p>
+        <p class="mt-4 text-sm leading-8 text-[var(--color-muted)]">From bridal lehengas and gowns to sarees, customised outfits and rental options, the store brings together fashion, fitting and personalised service under one roof.</p>
+        <ul class="mt-8 grid gap-3 text-xs font-bold tracking-[.08em] text-[var(--color-primary)] sm:grid-cols-2">
+          <li>✓ Designer Women's Wear</li>
+          <li>✓ Bridal & Wedding Collection</li>
+          <li>✓ Customised Outfits</li>
+          <li>✓ Rental Options</li>
+          <li>✓ Professional Fittings</li>
+        </ul><a href="#collections" class="mt-10 inline-block border-b border-[var(--gold)] pb-2 text-[10px] font-extrabold tracking-[.2em] text-[var(--color-primary)]">DISCOVER LOOK AT ME <span class="ml-5 text-lg">↗</span></a>
+      </div>
+    </section>
+
+    <section id="collections" class="section-pad bg-[var(--color-surface)]">
+      <div class="mb-12 flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p class="eyebrow">Curated For Your Moments</p>
+          <h2 class="heading mt-4 text-6xl font-medium leading-[.85] text-[var(--color-primary)] md:text-8xl">Find Your<br><em>Signature Look.</em></h2>
+        </div>
+        <p class="max-w-xs text-sm leading-7 text-[var(--color-muted)]">Explore available styles in-store and find the pieces that feel entirely your own.</p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="collection-card reveal"><img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=900&q=85" alt="Bridal lehenga fashion inspiration">
+          <div class="collection-content absolute bottom-8 left-8 right-7 text-white"><span class="text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">01</span>
+            <h3 class="heading mt-2 text-4xl">Bridal Lehengas</h3>
+            <p class="mt-2 text-xs leading-5 text-white/75">Statement bridal silhouettes designed for unforgettable celebrations.</p>
+          </div>
+        </article>
+        <article class="collection-card reveal"><img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=900&q=85" alt="Elegant gown fashion inspiration">
+          <div class="collection-content absolute bottom-8 left-8 right-7 text-white"><span class="text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">02</span>
+            <h3 class="heading mt-2 text-4xl">Gowns</h3>
+            <p class="mt-2 text-xs leading-5 text-white/75">Elegant gowns for receptions, parties and special occasions.</p>
+          </div>
+        </article>
+        <article class="collection-card reveal"><img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1610189012906-4c7c2f2b8d6d?auto=format&fit=crop&w=900&q=85" alt="Saree fashion inspiration">
+          <div class="collection-content absolute bottom-8 left-8 right-7 text-white"><span class="text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">03</span>
+            <h3 class="heading mt-2 text-4xl">Sarees</h3>
+            <p class="mt-2 text-xs leading-5 text-white/75">Timeless Indian elegance with a contemporary touch.</p>
+          </div>
+        </article>
+        <article class="collection-card reveal"><img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1597983073493-88cd35cf93f1?auto=format&fit=crop&w=900&q=85" alt="Ethnic wear fashion inspiration">
+          <div class="collection-content absolute bottom-8 left-8 right-7 text-white"><span class="text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">04</span>
+            <h3 class="heading mt-2 text-4xl">Ethnic Wear</h3>
+            <p class="mt-2 text-xs leading-5 text-white/75">Curated ethnic styles for celebrations and everyday occasions.</p>
+          </div>
+        </article>
+        <article class="collection-card reveal"><img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=85" alt="Custom fashion inspiration">
+          <div class="collection-content absolute bottom-8 left-8 right-7 text-white"><span class="text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">05</span>
+            <h3 class="heading mt-2 text-4xl">Custom Design</h3>
+            <p class="mt-2 text-xs leading-5 text-white/75">Customised outfits tailored around your preferred look and fit.</p>
+          </div>
+        </article>
+        <article class="collection-card reveal"><img class="absolute inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&w=900&q=85" alt="Rental collection fashion inspiration">
+          <div class="collection-content absolute bottom-8 left-8 right-7 text-white"><span class="text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">06</span>
+            <h3 class="heading mt-2 text-4xl">Rental Collection</h3>
+            <p class="mt-2 text-xs leading-5 text-white/75">Selected bridal and occasion outfits available for rental.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="bridal" class="relative overflow-hidden bg-[var(--color-primary)] px-6 py-24 text-[var(--color-primary-contrast)] md:px-12 lg:px-24">
+      <div class="absolute -right-5 top-1/2 -translate-y-1/2 heading text-[22rem] leading-none text-white/[.035]">BRIDE</div>
+      <div class="relative mx-auto grid max-w-[1500px] items-center gap-14 lg:grid-cols-[.9fr_1fr]">
+        <div class="reveal">
+          <p class="eyebrow">For Your Big Day</p>
+          <h2 class="heading mt-5 text-6xl leading-[.85] md:text-8xl">The Bridal Look<br><em class="text-[var(--gold)]">You've Imagined.</em></h2>
+          <p class="mt-8 max-w-lg text-sm leading-8 text-white/70">From bridal lehengas to jewellery, fittings and rental options, discover a curated experience designed around one of life's most memorable occasions.</p><a href="#visit" class="gold-button mt-9 inline-block px-7 py-4 text-[10px] font-extrabold tracking-[.18em]">EXPLORE BRIDAL COLLECTION</a>
+        </div>
+        <div class="grid gap-8 border-l border-[var(--gold)]/40 pl-7 md:grid-cols-3 lg:pl-12 reveal">
+          <div><strong class="heading text-4xl text-[var(--gold)]">01</strong>
+            <h3 class="mt-4 text-xs font-bold tracking-[.2em]">DISCOVER</h3>
+            <p class="mt-3 text-xs leading-6 text-white/60">Explore bridal styles and silhouettes.</p>
+          </div>
+          <div><strong class="heading text-4xl text-[var(--gold)]">02</strong>
+            <h3 class="mt-4 text-xs font-bold tracking-[.2em]">PERSONALISE</h3>
+            <p class="mt-3 text-xs leading-6 text-white/60">Choose fitting, customisation and styling options suited to your look.</p>
+          </div>
+          <div><strong class="heading text-4xl text-[var(--gold)]">03</strong>
+            <h3 class="mt-4 text-xs font-bold tracking-[.2em]">CELEBRATE</h3>
+            <p class="mt-3 text-xs leading-6 text-white/60">Step into your special moment with confidence.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rental" class="section-pad grid items-center gap-14 lg:grid-cols-2">
+      <div class="reveal">
+        <p class="eyebrow">Style Without The Commitment</p>
+        <h2 class="heading mt-5 text-6xl leading-[.85] text-[var(--color-primary)] md:text-8xl">Luxury Looks,<br><em>Made More Accessible.</em></h2>
+        <p class="mt-8 max-w-lg text-sm leading-8 text-[var(--color-muted)]">Looking for a statement outfit for a wedding or special occasion? Ask about the available rental collection and discover selected looks without purchasing the outfit.</p>
+        <div class="mt-8 grid grid-cols-3 border-y border-[var(--color-primary)]/15 py-6 text-center"><span class="text-[10px] font-extrabold tracking-[.13em] text-[var(--color-primary)]">LEHENGA<br>RENTAL</span><span class="border-x border-[var(--color-primary)]/15 text-[10px] font-extrabold tracking-[.13em] text-[var(--color-primary)]">GOWN<br>RENTAL</span><span class="text-[10px] font-extrabold tracking-[.13em] text-[var(--color-primary)]">OCCASION<br>WEAR</span></div><a href="tel:09815252627" class="mt-9 inline-block border-b border-[var(--gold)] pb-2 text-[10px] font-extrabold tracking-[.2em]">ASK ABOUT RENTALS <span class="ml-5 text-lg">↗</span></a>
+      </div>
+      <div class="reveal"><img class="h-[520px] w-full object-cover" src="https://images.unsplash.com/photo-1595880615618-3a2c2c4a9a2f?auto=format&fit=crop&w=1100&q=85" alt="Occasion wear fashion inspiration"></div>
+    </section>
+
+    <section class="grid items-stretch bg-[var(--color-surface)] lg:grid-cols-2">
+      <div class="section-pad">
+        <p class="eyebrow">Personalised Service</p>
+        <h2 class="heading mt-5 text-6xl leading-[.85] text-[var(--color-primary)] md:text-8xl">Made To Feel<br><em>Like Yours.</em></h2>
+        <p class="mt-8 max-w-lg text-sm leading-8 text-[var(--color-muted)]">From customised lehengas to fitting and stitching support, create a look that feels personal to you.</p>
+        <div class="mt-10 grid grid-cols-2 gap-7">
+          <div><span class="feature-icon">✦</span>
+            <h3 class="mt-4 text-[10px] font-extrabold tracking-[.18em]">CUSTOMISATION</h3>
+          </div>
+          <div><span class="feature-icon">⌁</span>
+            <h3 class="mt-4 text-[10px] font-extrabold tracking-[.18em]">FITTING</h3>
+          </div>
+          <div><span class="feature-icon">✂</span>
+            <h3 class="mt-4 text-[10px] font-extrabold tracking-[.18em]">STITCHING</h3>
+          </div>
+          <div><span class="feature-icon">✓</span>
+            <h3 class="mt-4 text-[10px] font-extrabOLD tracking-[.18em]">TIMELY DELIVERY</h3>
+          </div>
+        </div>
+      </div>
+      <div class="min-h-[450px] bg-[url('https://images.unsplash.com/photo-1585488434812-6b0d8a3d9e1c?auto=format&fit=crop&w=1200&q=85')] bg-cover bg-center" role="img" aria-label="Fashion atelier inspiration"></div>
+    </section>
+
+    <section id="gallery" class="section-pad">
+      <div class="mb-12 flex flex-wrap items-end justify-between gap-5">
+        <div>
+          <p class="eyebrow">Fashion Inspiration</p>
+          <h2 class="heading mt-4 text-6xl leading-[.85] text-[var(--color-primary)] md:text-8xl">A Closer Look.</h2>
+        </div>
+        <p class="max-w-xs text-sm leading-7 text-[var(--color-muted)]">Explore the world of Look At Me through a curated editorial lens.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-3 md:grid-cols-4 md:grid-rows-2"><button class="gallery-item col-span-2 row-span-2 h-[500px] text-left md:h-[650px]" data-gallery-item data-caption="Bridal fashion inspiration" data-full="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1600&q=90"><img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1000&q=85" alt="Bridal fashion inspiration"></button><button class="gallery-item h-64 text-left md:h-[317px]" data-gallery-item data-caption="Lehenga fashion inspiration" data-full="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=1600&q=90"><img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=800&q=85" alt="Lehenga fashion inspiration" loading="lazy"></button><button class="gallery-item h-64 text-left md:h-[317px]" data-gallery-item data-caption="Saree fashion inspiration" data-full="https://images.unsplash.com/photo-1610189012906-4c7c2f2b8d6d?auto=format&fit=crop&w=1600&q=90"><img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1610189012906-4c7c2f2b8d6d?auto=format&fit=crop&w=800&q=85" alt="Saree fashion inspiration" loading="lazy"></button><button class="gallery-item h-64 text-left md:h-[317px]" data-gallery-item data-caption="Ethnic fashion inspiration" data-full="https://images.unsplash.com/photo-1597983073493-88cd35cf93f1?auto=format&fit=crop&w=1600&q=90"><img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1597983073493-88cd35cf93f1?auto=format&fit=crop&w=800&q=85" alt="Ethnic fashion inspiration" loading="lazy"></button><button class="gallery-item h-64 text-left md:h-[317px]" data-gallery-item data-caption="Occasion wear inspiration" data-full="https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&w=1600&q=90"><img class="h-full w-full object-cover" src="https://images.unsplash.com/photo-1550639525-c97d455acf70?auto=format&fit=crop&w=800&q=85" alt="Occasion wear fashion inspiration" loading="lazy"></button></div>
+    </section>
+
+    <section id="reviews" class="section-pad overflow-hidden bg-[var(--color-primary)] text-[var(--color-primary-contrast)]">
+      <div class="mb-12 flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <p class="eyebrow">Customer Love</p>
+          <h2 class="heading mt-5 text-6xl leading-[.85] md:text-8xl">4.9 Stars.<br><em class="text-[var(--gold)]">320+ Stories.</em></h2>
+        </div>
+        <div class="text-right">
+          <div class="text-xl tracking-[.18em] text-[var(--gold)]">★★★★★</div>
+          <p class="mt-2 text-[10px] font-bold tracking-[.16em] text-white/60">4.9 GOOGLE RATING &nbsp; / &nbsp; 320+ REVIEWS</p>
+        </div>
+      </div>
+      <div class="review-viewport">
+        <div class="review-track" data-review-track>
+          <article class="review-card px-1 md:px-2" data-review-card>
+            <div class="h-full border border-white/15 p-7 md:p-9"><span class="text-3xl text-[var(--gold)]">“</span>
+              <p class="heading mt-4 text-2xl leading-tight">Wonderful experience at the wedding dress shop, with beautiful collection, quality fabrics and helpful staff.</p>
+              <p class="mt-8 text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">KRITIKA SHARMA</p>
+            </div>
+          </article>
+          <article class="review-card px-1 md:px-2" data-review-card>
+            <div class="h-full border border-white/15 p-7 md:p-9"><span class="text-3xl text-[var(--gold)]">“</span>
+              <p class="heading mt-4 text-2xl leading-tight">Great bridal collection and a one-stop shop for bridal needs.</p>
+              <p class="mt-8 text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">MUSKAN KHAN</p>
+            </div>
+          </article>
+          <article class="review-card px-1 md:px-2" data-review-card>
+            <div class="h-full border border-white/15 p-7 md:p-9"><span class="text-3xl text-[var(--gold)]">“</span>
+              <p class="heading mt-4 text-2xl leading-tight">Excellent stitching, fitting, reasonable pricing and timely delivery.</p>
+              <p class="mt-8 text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">REEYA SAINI</p>
+            </div>
+          </article>
+          <article class="review-card px-1 md:px-2" data-review-card>
+            <div class="h-full border border-white/15 p-7 md:p-9"><span class="text-3xl text-[var(--gold)]">“</span>
+              <p class="heading mt-4 text-2xl leading-tight">Beautiful collection, helpful staff and good guidance for different outfits.</p>
+              <p class="mt-8 text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">SIMRAN GAUR</p>
+            </div>
+          </article>
+          <article class="review-card px-1 md:px-2" data-review-card>
+            <div class="h-full border border-white/15 p-7 md:p-9"><span class="text-3xl text-[var(--gold)]">“</span>
+              <p class="heading mt-4 text-2xl leading-tight">Wide range of lehengas, gowns and sarees with great customer service.</p>
+              <p class="mt-8 text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">KOMAL SHARMA</p>
+            </div>
+          </article>
+          <article class="review-card px-1 md:px-2" data-review-card>
+            <div class="h-full border border-white/15 p-7 md:p-9"><span class="text-3xl text-[var(--gold)]">“</span>
+              <p class="heading mt-4 text-2xl leading-tight">Had a gown designed and appreciated the rental option and reasonable pricing.</p>
+              <p class="mt-8 text-[10px] font-bold tracking-[.2em] text-[var(--gold)]">USHA KOUR</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="mt-9 flex gap-3"><button class="outline-button px-5 py-3 text-[10px] font-extrabold tracking-[.17em]" data-review-prev>PREVIOUS</button><button class="gold-button px-5 py-3 text-[10px] font-extrabold tracking-[.17em]" data-review-next>NEXT</button></div>
+    </section>
+
+    <section class="section-pad bg-[var(--color-surface)] text-center">
+      <p class="eyebrow">Follow The Look</p>
+      <h2 class="heading mt-5 text-6xl leading-[.85] text-[var(--color-primary)] md:text-8xl">See More.<br><em>Discover More.</em></h2>
+      <p class="mt-7 text-sm text-[var(--color-muted)]">@lookatmepinjore</p><a href="https://www.instagram.com/lookatmepinjore/" target="_blank" rel="noopener noreferrer" class="gold-button mt-8 inline-block px-7 py-4 text-[10px] font-extrabold tracking-[.18em]">FOLLOW ON INSTAGRAM</a>
+    </section>
+
+    <section id="visit" class="section-pad grid gap-14 lg:grid-cols-[1.1fr_.9fr]">
+      <div class="reveal">
+        <p class="eyebrow">Visit The Showroom</p>
+        <h2 class="heading mt-5 text-6xl leading-[.85] text-[var(--color-primary)] md:text-8xl">Come See The<br><em>Collection In Person.</em></h2>
+        <div class="mt-10 border-l border-[var(--gold)] pl-6 text-sm leading-8 text-[var(--color-muted)]">Showroom No. F1, First Floor,<br>BRV Complex,<br>Opp. PNB Bank,<br>Main Bazaar,<br>Pinjore, Haryana 134102</div>
+        <p class="mt-7 text-sm font-bold text-[var(--color-primary)]">098152 52627</p>
+        <p class="mt-2 text-xs text-[var(--color-muted)]">Approximately 9:00 AM – 9:00 PM<br>Please confirm current timings before visiting.</p>
+        <div class="mt-8 flex flex-wrap gap-3"><a href="tel:09815252627" class="gold-button px-7 py-4 text-[10px] font-extrabold tracking-[.18em]">CALL SHOWROOM</a><a href="https://www.google.com/maps/search/?api=1&query=Look+At+Me+Pinjore+Haryana" target="_blank" rel="noopener noreferrer" class="border border-[var(--color-primary)] px-7 py-4 text-[10px] font-extrabold tracking-[.18em] text-[var(--color-primary)]">GET DIRECTIONS</a></div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 self-end reveal">
+        <div class="border-t border-[var(--gold)] pt-5">
+          <h3 class="text-[10px] font-extrabold tracking-[.14em]">IN-STORE SHOPPING</h3>
+          <p class="mt-3 text-xs leading-5 text-[var(--color-muted)]">Explore the collection in person.</p>
+        </div>
+        <div class="border-t border-[var(--gold)] pt-5">
+          <h3 class="text-[10px] font-extrabold tracking-[.14em]">DELIVERY</h3>
+          <p class="mt-3 text-xs leading-5 text-[var(--color-muted)]">Delivery service available.</p>
+        </div>
+        <div class="border-t border-[var(--gold)] pt-5">
+          <h3 class="text-[10px] font-extrabold tracking-[.14em]">ON-SITE SERVICES</h3>
+          <p class="mt-3 text-xs leading-5 text-[var(--color-muted)]">Support for fittings and related services.</p>
+        </div>
+        <div class="border-t border-[var(--gold)] pt-5">
+          <h3 class="text-[10px] font-extrabold tracking-[.14em]">MULTIPLE PAYMENTS</h3>
+          <p class="mt-3 text-xs leading-5 text-[var(--color-muted)]">Cards and NFC mobile payments.</p>
+        </div>
+        <div class="border-t border-[var(--gold)] pt-5">
+          <h3 class="text-[10px] font-extrabold tracking-[.14em]">PARKING</h3>
+          <p class="mt-3 text-xs leading-5 text-[var(--color-muted)]">Free parking options available.</p>
+        </div>
+        <div class="border-t border-[var(--gold)] pt-5">
+          <h3 class="text-[10px] font-extrabold tracking-[.14em]">RESTROOM</h3>
+          <p class="mt-3 text-xs leading-5 text-[var(--color-muted)]">Available for customers.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero flex min-h-[560px] items-center justify-center px-6 py-24 text-center text-[var(--color-primary-contrast)]">
+      <div>
+        <p class="eyebrow">The Next Chapter</p>
+        <h2 class="heading mt-5 text-7xl leading-[.78] md:text-9xl">Your Next<br><em class="text-[var(--gold)]">Look Starts Here.</em></h2>
+        <p class="mx-auto mt-8 max-w-md text-sm leading-7 text-white/75">Discover designer fashion for weddings, celebrations and moments worth dressing for.</p>
+        <div class="mt-9 flex flex-wrap justify-center gap-3"><a href="#visit" class="gold-button px-7 py-4 text-[10px] font-extrabold tracking-[.18em]">VISIT SHOWROOM</a><a href="tel:09815252627" class="outline-button px-7 py-4 text-[10px] font-extrabold tracking-[.18em]">CALL 098152 52627</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[var(--color-text)] px-6 pb-28 pt-16 text-[var(--color-primary-contrast)] md:px-12 md:pb-12 lg:px-24">
+    <div class="grid gap-12 border-b border-white/15 pb-14 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr]">
+      <div><a href="/" class="text-lg font-extrabold tracking-[.18em]">LOOK AT ME</a>
+        <p class="mt-3 text-xs text-white/50">Designer Clothing Store<br><span class="text-[var(--gold)]">लुक अत मे</span></p>
+      </div>
+      <div>
+        <p class="eyebrow mb-5">Explore</p>
+        <div class="grid grid-cols-2 gap-3 text-xs text-white/65"><a href="#home">Home</a><a href="#about">About</a><a href="#collections">Collections</a><a href="#bridal">Bridal</a><a href="#rental">Rental</a><a href="#gallery">Gallery</a><a href="#reviews">Reviews</a><a href="#visit">Visit Us</a></div>
+      </div>
+      <div>
+        <p class="eyebrow mb-5">Contact</p>
+        <p class="text-sm text-white/75">098152 52627<br>Pinjore, Haryana</p><a class="mt-4 inline-block text-sm text-[var(--gold)]" href="https://www.instagram.com/lookatmepinjore/" target="_blank" rel="noopener noreferrer">@lookatmepinjore</a>
+        <p class="mt-4 text-xs text-white/50">Approximately 9 AM – 9 PM</p>
+      </div>
+    </div>
+    <div class="flex flex-wrap justify-between gap-4 pt-6 text-[10px] tracking-[.12em] text-white/40"><span>© 2026 Look At Me. All rights reserved.</span><span>PINJORE • HARYANA</span></div>
+  </footer>
+
+  <div class="lightbox fixed inset-0 z-[60] grid place-items-center bg-[rgba(23,19,22,.95)] p-5" data-lightbox aria-hidden="true"><button class="absolute right-5 top-5 text-3xl text-white" data-lightbox-close aria-label="Close gallery">×</button><button class="absolute left-4 top-1/2 text-3xl text-white md:left-10" data-lightbox-prev aria-label="Previous image">‹</button>
+    <figure class="text-center"><img class="lightbox-image mx-auto" data-lightbox-image src="" alt="">
+      <figcaption class="mt-5 text-xs tracking-[.18em] text-[var(--gold)]" data-lightbox-caption></figcaption>
+    </figure><button class="absolute right-4 top-1/2 text-3xl text-white md:right-10" data-lightbox-next aria-label="Next image">›</button>
+  </div>
+  <div class="mobile-bottom fixed bottom-0 left-0 right-0 z-30 h-16 bg-[var(--color-primary)] text-center text-[10px] font-extrabold tracking-[.15em] text-white shadow-2xl"><a class="flex flex-1 items-center justify-center border-r border-white/20" href="tel:09815252627">CALL</a><a class="flex flex-1 items-center justify-center text-[var(--gold)]" href="#visit">VISIT SHOWROOM</a></div>
+  <script src="/script.js" defer></script>
+</body>
+
+</html>
